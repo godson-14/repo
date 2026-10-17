@@ -40,6 +40,7 @@ test("enforces request frequency", async () => {
   try {
     await f.guard.beforeRequest();
     await assert.rejects(() => f.guard.beforeRequest(), GuardrailLimitError);
+    assert.equal((await f.guard.getUsage()).requests, 1, "blocked requests must not be counted");
   } finally { await f.cleanup(); }
 });
 test("wrapFetch blocks before calling network", async () => {
@@ -54,4 +55,6 @@ test("wrapFetch blocks before calling network", async () => {
 test("rejects invalid configuration", async () => {
   await assert.rejects(() => initGuard({ maxDailySpend: 0, alertThreshold: 0.8, apiKeyProvider: "generic" }), /maxDailySpend/);
   await assert.rejects(() => initGuard({ maxDailySpend: 1, alertThreshold: 2, apiKeyProvider: "generic" }), /alertThreshold/);
+  await assert.rejects(() => initGuard({ maxDailySpend: 1, alertThreshold: 0.8, apiKeyProvider: "generic", maxRequestsPerMinute: 0 }), /maxRequestsPerMinute/);
+  await assert.rejects(() => initGuard({ maxDailySpend: 1, alertThreshold: 0.8, apiKeyProvider: "generic", maxOutputTokensPerRequest: -1 }), /maxOutputTokensPerRequest/);
 });
