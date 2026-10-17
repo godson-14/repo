@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="Asset-Diet is a safe Node.js CLI that optimizes image assets and reports file-size savings.">
+<title>Asset-Diet — Make your images lighter</title>
+<style>
+:root{color-scheme:dark;--bg:#080c18;--panel:#11182a;--line:#27324b;--muted:#aab5ca;--text:#f6f8ff;--lime:#c7f36b;--blue:#83a9ff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#17274a 0,transparent 38%),var(--bg);color:var(--text);font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit} .wrap{width:min(1100px,calc(100% - 40px));margin:auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:24px 0}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.03em;font-size:1.15rem}.mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--lime);color:#121a0a;font-weight:950}.navlinks{display:flex;gap:22px;align-items:center;color:var(--muted);font-size:.93rem}.navlinks a{text-decoration:none}.navlinks a:hover{color:var(--lime)}.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;padding:12px 18px;border-radius:12px;font-weight:750;background:var(--lime);color:#10170b;border:1px solid transparent}.button.secondary{background:transparent;color:var(--text);border-color:var(--line)}.hero{padding:76px 0 86px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--lime);font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em}.dot{width:7px;height:7px;border-radius:50%;background:var(--lime)}h1{font-size:clamp(2.8rem,6vw,5.3rem);line-height:1.02;letter-spacing:-.065em;margin:18px 0 22px}h1 span{color:var(--lime)}.lead{font-size:1.15rem;color:var(--muted);max-width:590px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 22px}.micro{font-size:.88rem;color:#8d9bb5}.terminal{background:#0c1222;border:1px solid #34415e;border-radius:20px;box-shadow:0 28px 80px #0007;overflow:hidden;transform:rotate(1deg)}.termhead{padding:15px 18px;display:flex;gap:7px;border-bottom:1px solid #26324a;align-items:center}.orb{width:9px;height:9px;border-radius:50%;background:#53617c}.termhead span:last-child{margin-left:auto;color:#8794ac;font-size:.8rem}.termbody{padding:25px 23px;font: .9rem/2 ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}.prompt{color:var(--lime)}.faint{color:#8b9ab6}.good{color:#a7e78a}.statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.stat{background:#141d31;border:1px solid #27344e;border-radius:12px;padding:13px}.stat strong{display:block;font-size:1.15rem}.stat small{color:var(--muted)}section{padding:65px 0}.sectionhead{max-width:650px;margin-bottom:30px}.kicker{color:var(--lime);font-weight:800;text-transform:uppercase;letter-spacing:.13em;font-size:.76rem}h2{font-size:clamp(2rem,4vw,3rem);line-height:1.1;letter-spacing:-.045em;margin:10px 0 14px}.sub{color:var(--muted);margin:0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.feature,.step{padding:23px;border:1px solid var(--line);background:linear-gradient(145deg,#141c30,#0e1423);border-radius:17px}.feature .icon{font-size:1.5rem}.feature h3{margin:13px 0 5px}.feature p,.step p{color:var(--muted);margin:0}.codebox{border:1px solid var(--line);border-radius:16px;background:#0c1222;overflow:hidden}.codebar{display:flex;justify-content:space-between;padding:12px 16px;color:var(--muted);border-bottom:1px solid var(--line);font-size:.85rem}.codebox pre{padding:12px 20px 22px;margin:0;overflow:auto;font: .92rem/1.9 ui-monospace,SFMono-Regular,Menlo,monospace;color:#dbe5ff}.codebox code{color:var(--lime)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.num{font-size:.8rem;font-weight:900;color:var(--lime);letter-spacing:.1em}.cta{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:32px;border-radius:22px;border:1px solid #3b4c6c;background:linear-gradient(115deg,#182745,#11192b)}.cta p{margin:8px 0 0;color:var(--muted)}footer{border-top:1px solid #202b41;padding:28px 0;color:var(--muted);font-size:.9rem}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.foot a{color:var(--lime);text-decoration:none}@media(max-width:780px){.hero{grid-template-columns:1fr;padding-top:46px;gap:35px}.terminal{transform:none}.grid,.steps{grid-template-columns:1fr}.navlinks a:not(.button){display:none}.cta{align-items:flex-start;flex-direction:column}.statrow{grid-template-columns:1fr 1fr 1fr}.wrap{width:min(100% - 28px,1100px)}}
+</style>
+</head>
+<body>
+<header class="wrap nav">
+<a class="brand" href="#" aria-label="Asset-Diet home"><span class="mark">AD</span> Asset-Diet</a>
+<nav class="navlinks" aria-label="Main navigation"><a href="#features">Features</a><a href="#usage">Usage</a><a href="https://github.com/godson-14/repo/tree/main/asset-diet" target="_blank" rel="noreferrer">GitHub ↗</a><a class="button" href="#install">Get started</a></nav>
+</header>
+<main>
+<div class="wrap hero">
+<div><div class="eyebrow"><span class="dot"></span> Lightweight workflow. Safer files.</div>
+<h1>Make your images <span>lighter.</span></h1>
+<p class="lead">Asset-Diet is a practical Node.js command-line tool that optimizes image assets and shows you how much space you can save—without replacing your originals by default.</p>
+<div class="actions"><a class="button" href="#install">Get started <span>→</span></a><a class="button secondary" href="https://github.com/godson-14/repo/tree/main/asset-diet" target="_blank" rel="noreferrer">Explore the code ↗</a></div>
+<div class="micro">Open source · MIT license · Node.js 20+</div>
+</div>
+<div>
+<div class="terminal"><div class="termhead"><i class="orb"></i><i class="orb"></i><i class="orb"></i><span>terminal — asset-diet</span></div><div class="termbody"><div><span class="prompt">$</span> asset-diet ./public/images --dry-run</div><div class="faint">Scanning image assets…</div><br><div>photo-one.jpg <span class="good">−38.4%</span></div><div>banner.png <span class="good">−21.7%</span></div><div>hero.webp <span class="good">−12.2%</span></div><br><div class="good">✓ Preview complete</div><div class="faint">Original files unchanged in dry-run mode.</div></div></div>
+<div class="statrow"><div class="stat"><strong>4 formats</strong><small>JPEG, PNG, WebP, AVIF</small></div><div class="stat"><strong>Safe first</strong><small>Copies by default</small></div><div class="stat"><strong>CLI</strong><small>Fits into workflows</small></div></div>
+</div>
+</div>
+<section id="features"><div class="wrap"><div class="sectionhead"><div class="kicker">Why Asset-Diet</div><h2>Optimize with confidence.</h2><p class="sub">A focused tool for developers who want leaner assets and predictable file handling.</p></div>
+<div class="grid">
+<article class="feature"><div class="icon">🛡️</div><h3>Originals stay safe</h3><p>Optimized copies go into a separate output folder by default. Use overwrite only when you deliberately choose it.</p></article>
+<article class="feature"><div class="icon">⚡</div><h3>Less image weight</h3><p>Use Sharp to process JPEG, PNG, WebP and AVIF files, and keep the original when an optimized result is larger.</p></article>
+<article class="feature"><div class="icon">📊</div><h3>Clear savings reports</h3><p>Review file-by-file results or request JSON output to plug reports into your own scripts.</p></article>
+<article class="feature"><div class="icon">🗂️</div><h3>Recursive scanning</h3><p>Walk image folders and subfolders while skipping common generated and dependency directories.</p></article>
+<article class="feature"><div class="icon">🧪</div><h3>Preview first</h3><p>Run a dry-run to estimate the effect before writing optimized files.</p></article>
+<article class="feature"><div class="icon">🎛️</div><h3>Choose your quality</h3><p>Adjust lossy image quality with a simple option to fit your project’s needs.</p></article>
+</div></div></section>
+<section id="usage"><div class="wrap"><div class="sectionhead"><div class="kicker">Simple workflow</div><h2>Three steps to a lighter folder.</h2><p class="sub">Install the tool, preview the result, then choose whether to write optimized copies.</p></div>
+<div class="steps"><article class="step"><div class="num">01 / INSTALL</div><h3>Set it up</h3><p>Use Node.js 20 or newer and install Asset-Diet when the package is published.</p></article><article class="step"><div class="num">02 / PREVIEW</div><h3>Check savings</h3><p>Run the dry-run option to see what could change without writing optimized files.</p></article><article class="step"><div class="num">03 / OPTIMIZE</div><h3>Review outputs</h3><p>Generate optimized copies, compare the results, and use overwrite only when you intend to.</p></article></div>
+</div></section>
+<section id="install"><div class="wrap"><div class="sectionhead"><div class="kicker">Get started</div><h2>Try it from the repository.</h2><p class="sub">The package is being prepared for npm publishing. Until then, you can clone the project and run it locally.</p></div>
+<div class="codebox"><div class="codebar"><span>Terminal</span><span>Local setup</span></div><pre><span class="faint"># Clone the repository</span>
+git clone https://github.com/godson-14/repo.git
+cd repo/asset-diet
+
+<span class="faint"># Install dependencies and run tests</span>
+npm install
+npm test
+
+<span class="faint"># Preview image optimization</span>
+node src/cli.mjs ./public/images --dry-run</pre></div>
+<p class="micro" style="margin-top:14px">After npm publication, the install command will be added here. Do not rely on <code>npm install -g asset-diet</code> until the package is confirmed published.</p>
+</div></section>
+<section><div class="wrap"><div class="cta"><div><div class="kicker">Open source project</div><h2 style="margin-bottom:0">Build smaller. Ship smarter.</h2><p>Read the documentation, inspect the source, and help improve Asset-Diet.</p></div><a class="button" href="https://github.com/godson-14/repo/tree/main/asset-diet" target="_blank" rel="noreferrer">View on GitHub ↗</a></div></div></section>
+</main>
+<footer><div class="wrap foot"><span>© <span id="year">2026</span> Asset-Diet · MIT License</span><span>Built for a lighter web. <a href="https://github.com/godson-14/repo/tree/main/asset-diet" target="_blank" rel="noreferrer">Source code ↗</a></span></div></footer>
+</body></html>
