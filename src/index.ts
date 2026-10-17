@@ -98,7 +98,12 @@ export class Guardrail {
     const threshold = options.alertThreshold ?? 0.8;
     if (!Number.isFinite(threshold) || threshold < 0 || threshold > 1) throw new TypeError("alertThreshold must be between 0 and 1");
     if (options.pricing && [options.pricing.inputPerMillion, options.pricing.outputPerMillion].some(v => !Number.isFinite(v) || v < 0)) throw new TypeError("pricing values must be non-negative");
-    this.options = { ...options, cachePath: options.cachePath ?? "./.guardrail-cache.json", alertThreshold: threshold, maxRequestsPerMinute: options.maxRequestsPerMinute ?? Number.MAX_SAFE_INTEGER, maxOutputTokensPerRequest: options.maxOutputTokensPerRequest ?? 1024, exitOnLimit: options.exitOnLimit ?? true };
+    const requestLimit = options.maxRequestsPerMinute ?? Number.MAX_SAFE_INTEGER;
+    if (!Number.isSafeInteger(requestLimit) || requestLimit < 1) throw new TypeError("maxRequestsPerMinute must be a positive safe integer");
+    const outputLimit = options.maxOutputTokensPerRequest ?? 1024;
+    if (!Number.isSafeInteger(outputLimit) || outputLimit < 0) throw new TypeError("maxOutputTokensPerRequest must be a non-negative safe integer");
+    if (options.pricingTtlMs !== undefined && (!Number.isFinite(options.pricingTtlMs) || options.pricingTtlMs < 0)) throw new TypeError("pricingTtlMs must be a finite non-negative number");
+    this.options = { ...options, cachePath: options.cachePath ?? "./.guardrail-cache.json", alertThreshold: threshold, maxRequestsPerMinute: requestLimit, maxOutputTokensPerRequest: outputLimit, exitOnLimit: options.exitOnLimit ?? true };
     this.usage = this.emptyUsage();
   }
   private emptyUsage(): UsageRecord {
@@ -146,6 +151,7 @@ export class Guardrail {
     const estimate = numberAtLeastZero(estimatedCostUsd, "estimatedCostUsd");
     if (this.usage.minuteBucket !== minute()) { this.usage.minuteBucket = minute(); this.usage.requestsThisMinute = 0; }
     this.enforce();
+    if (this.usage.requestsThisMinute >= this.options.maxRequestsPerMinute) this.stop("Request rate limit exceeded.");
     if (this.usage.estimatedSpendUsd + estimate >= this.options.maxDailySpend) this.stop("Estimated request would reach the daily spend limit.");
     this.usage.requests++;
     this.usage.requestsThisMinute++;
