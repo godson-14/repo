@@ -1,0 +1,30 @@
+name: GarbageCollector-Dev CI
+
+on:
+  push:
+    paths:
+      - "garbagecollector-dev/**"
+      - ".github/workflows/garbagecollector-test.yml"
+  pull_request:
+    paths:
+      - "garbagecollector-dev/**"
+      - ".github/workflows/garbagecollector-test.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: garbagecollector-dev
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run tests
+        run: npm test
