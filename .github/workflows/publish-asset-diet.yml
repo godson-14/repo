@@ -5,6 +5,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   publish:
@@ -16,11 +17,15 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set up Node.js for npm trusted publishing
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '22.14.0'
           registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Update npm for trusted publishing support
+        run: npm install --global npm@^11.5.1
 
       - name: Install dependencies
         run: npm install
@@ -31,7 +36,5 @@ jobs:
       - name: Check package contents
         run: npm pack --dry-run
 
-      - name: Publish package
+      - name: Publish package using npm trusted publishing
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
