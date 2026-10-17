@@ -45,9 +45,9 @@ test("enforces request frequency", async () => {
 test("wrapFetch blocks before calling network", async () => {
   const f = await fixture();
   try {
-    await f.guard.recordUsage({ actualCostUsd: 1 });
+    await f.guard.recordUsage({ actualCostUsd: 0.9999 });
     let called = false;
-    await assert.rejects(() => f.guard.wrapFetch(async () => { called = true; return new Response("no"); })("https://example.invalid"), GuardrailLimitError);
+    await assert.rejects(() => f.guard.wrapFetch(async () => { called = true; return new Response("no"); })("https://api.openai.com/v1/chat/completions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ model: "test-model", messages: [{ role: "user", content: "hello" }], max_tokens: 1024 }) }), GuardrailLimitError);
     assert.equal(called, false);
   } finally { await f.cleanup(); }
 });
