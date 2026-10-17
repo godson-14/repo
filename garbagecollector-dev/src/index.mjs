@@ -121,7 +121,16 @@ async function main() {
   const eventPath = process.env.GITHUB_EVENT_PATH;
   if (!eventPath) throw new Error("GITHUB_EVENT_PATH is missing; this script should run inside GitHub Actions.");
   const event = JSON.parse(await readFile(eventPath, "utf8"));
-  const result = await runGarbageCollector({ eventName: process.env.GITHUB_EVENT_NAME, event, env: process.env });
+  const actionEnv = {
+    ...process.env,
+    INPUT_DRY_RUN: process.env["INPUT_DRY-RUN"] ?? process.env.INPUT_DRY_RUN,
+    VERCEL_TOKEN: process.env["INPUT_VERCEL-TOKEN"] ?? process.env.VERCEL_TOKEN,
+    VERCEL_TEAM_ID: process.env["INPUT_VERCEL-TEAM-ID"] ?? process.env.VERCEL_TEAM_ID,
+    VERCEL_PROJECT_ID: process.env["INPUT_VERCEL-PROJECT-ID"] ?? process.env.VERCEL_PROJECT_ID,
+    SUPABASE_ACCESS_TOKEN: process.env["INPUT_SUPABASE-ACCESS-TOKEN"] ?? process.env.SUPABASE_ACCESS_TOKEN,
+    SUPABASE_PROJECT_REF: process.env["INPUT_SUPABASE-PROJECT-REF"] ?? process.env.SUPABASE_PROJECT_REF
+  };
+  const result = await runGarbageCollector({ eventName: process.env.GITHUB_EVENT_NAME, event, env: actionEnv });
   if (process.env.GITHUB_OUTPUT) {
     const { appendFile } = await import("node:fs/promises");
     await appendFile(process.env.GITHUB_OUTPUT, `dry_run=${String(result.dryRun ?? true)}\n`);
