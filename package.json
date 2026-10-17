@@ -1,0 +1,41 @@
+{
+  "name": "guardrail-dev",
+  "version": "1.1.0",
+  "description": "Local AI API spend and runaway request guard with dynamic model pricing",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "ai",
+    "api-cost",
+    "rate-limit",
+    "guardrail",
+    "openai",
+    "anthropic",
+    "spend-limit"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2"
+  }
+}
