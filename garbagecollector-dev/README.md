@@ -14,7 +14,7 @@ A GitHub Action that identifies orphaned preview deployments and temporary Supab
 ## Configure in your repository
 
 1. Copy this action folder into your repository, or reference this repository and folder from another workflow.
-2. In repository settings, add only the provider secrets you need: VERCEL_TOKEN and SUPABASE_ACCESS_TOKEN.
+2. In repository settings, add only the provider secrets you need: VERCEL_TOKEN and SUPABASE_API_KEY.
 3. Add non-secret repository variables: VERCEL_PROJECT_ID, optional VERCEL_TEAM_ID, and SUPABASE_PROJECT_REF.
 4. Start with dry-run set to true. Review the action logs to confirm the exact resources it would target.
 5. Only after reviewing the dry-run output, explicitly set dry-run to false for a test repository with disposable preview resources.
@@ -23,7 +23,9 @@ Never put tokens directly in workflow YAML or commit them to the repository. Use
 
 ## Example workflow
 
-Save this as .github/workflows/garbage-collector.yml in the repository where you want cleanup events monitored:
+The repository includes a safe dry-run workflow at `.github/workflows/garbagecollector-dry-run.yml`. It runs when a pull request closes or a branch is deleted and **always sets `dry-run: "true"`**, so it will not delete resources. Add these optional repository secrets/variables if you want it to query your provider accounts. Never paste tokens into chat or commit them.
+
+For another repository, use this example workflow:
 
     name: GarbageCollector-Dev
     on:
@@ -46,7 +48,7 @@ Save this as .github/workflows/garbage-collector.yml in the repository where you
               vercel-token: ${{ secrets.VERCEL_TOKEN }}
               vercel-project-id: ${{ vars.VERCEL_PROJECT_ID }}
               vercel-team-id: ${{ vars.VERCEL_TEAM_ID }}
-              supabase-access-token: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+              supabase-access-token: ${{ secrets.SUPABASE_API_KEY }}
               supabase-project-ref: ${{ vars.SUPABASE_PROJECT_REF }}
 
 Replace the placeholder action reference with the repository and ref where this folder lives. GitHub Actions passes the pull_request or delete event into the action automatically.
