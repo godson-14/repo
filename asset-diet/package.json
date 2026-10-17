@@ -1,10 +1,10 @@
 {
   "name": "asset-diet",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A safe CLI for optimizing image assets and reporting disk savings.",
   "type": "module",
   "bin": {
-    "asset-diet": "./src/cli.mjs"
+    "asset-diet": "src/cli.mjs"
   },
   "scripts": {
     "test": "node --test",
@@ -27,7 +27,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/godson-14/repo.git",
+    "url": "git+https://github.com/godson-14/repo.git",
     "directory": "asset-diet"
   },
   "homepage": "https://github.com/godson-14/repo/tree/main/asset-diet",
