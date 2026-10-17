@@ -1,0 +1,26 @@
+name: GarbageCollector-Dev
+description: Safely identify and optionally remove preview deployments and Supabase database branches for a closed pull request or deleted branch.
+author: godson-14
+inputs:
+  dry-run:
+    description: When true, list matching resources without deleting them. Keep true until you've reviewed the logs.
+    required: false
+    default: "true"
+  vercel-token:
+    description: Vercel access token (store as a GitHub Actions secret).
+    required: false
+  vercel-team-id:
+    description: Optional Vercel team ID.
+    required: false
+  vercel-project-id:
+    description: Exact Vercel project ID to inspect. Required when vercel-token is supplied.
+    required: false
+  supabase-access-token:
+    description: Supabase Management API access token (store as a GitHub Actions secret).
+    required: false
+  supabase-project-ref:
+    description: Exact Supabase project ref to inspect. Required when supabase-access-token is supplied.
+    required: false
+runs:
+  using: node20
+  main: src/index.mjs
