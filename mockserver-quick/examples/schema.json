@@ -1,0 +1,10 @@
+{
+  "users": [
+    { "id": "u1", "name": "Ada Lovelace", "email": "ada@example.test", "role": "admin" },
+    { "id": "u2", "name": "Grace Hopper", "email": "grace@example.test", "role": "developer" }
+  ],
+  "tasks": [
+    { "id": "t1", "title": "Build the homepage", "completed": false },
+    { "id": "t2", "title": "Test the API", "completed": true }
+  ]
+}
