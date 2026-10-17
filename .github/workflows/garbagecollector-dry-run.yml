@@ -1,0 +1,30 @@
+name: GarbageCollector-Dev Safe Dry Run
+
+on:
+  pull_request:
+    types: [closed]
+  delete:
+
+permissions:
+  contents: read
+
+jobs:
+  preview-cleanup-dry-run:
+    # Only inspect closed PRs or deleted branches. This workflow always keeps dry-run enabled.
+    if: >-
+      (github.event_name == 'pull_request' && github.event.action == 'closed') ||
+      (github.event_name == 'delete' && github.event.ref_type == 'branch')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Inspect matching staging resources (no deletions)
+        uses: ./garbagecollector-dev
+        with:
+          dry-run: "true"
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-team-id: ${{ vars.VERCEL_TEAM_ID }}
+          vercel-project-id: ${{ vars.VERCEL_PROJECT_ID }}
+          supabase-access-token: ${{ secrets.SUPABASE_API_KEY }}
+          supabase-project-ref: ${{ vars.SUPABASE_PROJECT_REF }}
