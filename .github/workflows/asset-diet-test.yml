@@ -1,0 +1,33 @@
+name: Asset-Diet Tests
+
+on:
+  push:
+    paths:
+      - "asset-diet/**"
+      - ".github/workflows/asset-diet-test.yml"
+  pull_request:
+    paths:
+      - "asset-diet/**"
+      - ".github/workflows/asset-diet-test.yml"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: asset-diet
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm test
+      - name: Check CLI help
+        run: node src/cli.mjs --help

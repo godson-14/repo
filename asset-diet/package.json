@@ -1,0 +1,11 @@
+{
+  "name": "asset-diet",
+  "version": "1.0.0",
+  "description": "A safe CLI for optimizing image assets and reporting disk savings.",
+  "type": "module",
+  "bin": { "asset-diet": "./src/cli.mjs" },
+  "scripts": { "test": "node --test", "start": "node src/cli.mjs" },
+  "engines": { "node": ">=20" },
+  "dependencies": { "sharp": "^0.34.3" },
+  "license": "MIT"
+}
