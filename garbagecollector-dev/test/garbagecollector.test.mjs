@@ -89,3 +89,51 @@ test("provider API errors are reported instead of ignored", async () => {
     fetchImpl: async () => new Response("bad token", { status: 403 }), log: () => {}
   }), /HTTP 403/);
 });
+
+test("Supabase delete mode sends DELETE only for an exact disposable branch", async () => {
+  const calls = [];
+  const result = await cleanupSupabaseBranches({
+    branchName: "feature/cleanup",
+    token: "test-token",
+    projectRef: "project123",
+    dryRun: false,
+    log: () => {},
+    fetchImpl: async (url, options = {}) => {
+      calls.push({ url: String(url), method: options.method ?? "GET" });
+      if (!options.method) {
+        return new Response(JSON.stringify([
+          { id: "branch-id-1", name: "preview-branch", git_branch: "feature/cleanup", persistent: false, is_default: false },
+          { id: "branch-id-2", name: "main", git_branch: "main", persistent: false, is_default: true }
+        ]), { status: 200, headers: { "content-type": "application/json" } });
+      }
+      return new Response(JSON.stringify({ message: "ok" }), { status: 200, headers: { "content-type": "application/json" } });
+    }
+  });
+  assert.equal(result.deleted, 1);
+  assert.deepEqual(calls.map((call) => call.method), ["GET", "DELETE"]);
+  assert.match(calls[1].url, /branch-id-1/);
+});
+
+test("Vercel delete mode removes only the exact preview deployment", async () => {
+  const calls = [];
+  const result = await cleanupVercelDeployments({
+    branchName: "feature/cleanup",
+    token: "test-token",
+    projectId: "project-123",
+    dryRun: false,
+    log: () => {},
+    fetchImpl: async (url, options = {}) => {
+      calls.push({ url: String(url), method: options.method ?? "GET" });
+      if (!options.method) {
+        return new Response(JSON.stringify({ deployments: [
+          { uid: "preview-id", projectId: "project-123", target: "preview", meta: { githubCommitRef: "feature/cleanup" } },
+          { uid: "prod-id", projectId: "project-123", target: "production", meta: { githubCommitRef: "feature/cleanup" } }
+        ] }), { status: 200, headers: { "content-type": "application/json" } });
+      }
+      return new Response(JSON.stringify({ id: "preview-id" }), { status: 200, headers: { "content-type": "application/json" } });
+    }
+  });
+  assert.equal(result.deleted, 1);
+  assert.deepEqual(calls.map((call) => call.method), ["GET", "DELETE"]);
+  assert.match(calls[1].url, /preview-id/);
+});
