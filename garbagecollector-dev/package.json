@@ -1,0 +1,13 @@
+{
+  "name": "garbagecollector-dev",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A safe GitHub Action for pruning orphaned staging resources after branches and pull requests are closed.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
