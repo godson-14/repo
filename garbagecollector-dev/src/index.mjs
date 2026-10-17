@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 
 const PROTECTED_NAMES = new Set(["main", "master", "production", "prod", "staging", "develop", "development"]);
 
@@ -138,7 +139,7 @@ async function main() {
   }
 }
 
-if (process.env.GITHUB_ACTIONS === "true") {
+if (process.env.GITHUB_ACTIONS === "true" && process.argv[1] === fileURLToPath(import.meta.url)) {
   main().catch((error) => {
     console.error(`GarbageCollector-Dev failed safely: ${error.message}`);
     process.exitCode = 1;
